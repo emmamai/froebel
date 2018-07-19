@@ -1,0 +1,30 @@
+### This recipe is used in bootstrap
+pkgname="opkg-utils"
+pkgver="0.3.6"
+pkgrev="0"
+arch="all"
+maintainer="ky0ko <ky0ko@disroot.org>"
+url="https://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils/"
+desc="Opkg helper scripts"
+license="GPL2"
+src="https://git.yoctoproject.org/cgit/cgit.cgi/${pkgname}/snapshot/${pkgname}-${pkgver}.tar.gz"
+
+builddir=$srcdir/${pkgname}-${pkgver}
+
+do_build() {
+    cd $builddir
+
+    make
+}
+
+do_bootstrap_install() {
+    cd $builddir
+
+    make DESTDIR=$froebelroot PREFIX="" install
+}
+
+do_install() {
+    cd $builddir
+
+    make DESTDIR=$pkgdir PREFIX=/usr install
+}
