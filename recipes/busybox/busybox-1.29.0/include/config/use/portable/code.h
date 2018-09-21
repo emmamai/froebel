@@ -1,1 +1,0 @@
-#define CONFIG_USE_PORTABLE_CODE 1

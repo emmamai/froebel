@@ -4,6 +4,7 @@ touch .froebel_bootstrap
 
 source common/colors.sh
 source common/log.sh
+source common/build_host.conf
 
 mkdir -p bin
 
@@ -18,8 +19,11 @@ fbuild='sh ./common/fbuild_lite.sh'
 log ${c_yellow}\#\# Froebel Bootstrap${c_reset}
 log run by `whoami`@`hostname` on `uname -s -m -r` at `date`
 
-pkglist="opkg-utils mksh cmake llvm clang"
+hostpkglist="mksh"
 
-for pkg in $pkglist; do
+for pkg in $hostpkglist; do
     $fbuild $pkg
+    #opkg is the first thing built, and the bootstrap recipe pre-installs itself.
+    #so by the time we run this, it will already be installed.
+    # opkg install 
 done
